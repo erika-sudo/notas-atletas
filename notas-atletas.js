@@ -17,28 +17,22 @@ let atletas = [
   }
 ];
 
+function calcularMediaNotas(notas) {
+  let notasOrdenadas = [...notas].sort((a, b) => a - b);
+  let notasValidas = notasOrdenadas.slice(1, notasOrdenadas.length - 1);
+  let soma = notasValidas.reduce((total, nota) => total + nota, 0);
+  return soma / notasValidas.length;
+}
+
 function calcularMedia(atletas) {
-  for (let i = 0; i < atletas.length; i++) {
-    let atleta = atletas[i];
-
-    // Ordena as notas
-    let notasOrdenadas = atleta.notas.sort((a, b) => a - b);
-
-    // Remove a menor e a maior nota
-    let notasValidas = notasOrdenadas.slice(1, 4);
-
-    // Soma das notas válidas
-    let soma = 0;
-    notasValidas.forEach(nota => soma += nota);
-
-    // Calcula a média
-    let media = soma / notasValidas.length;
+  atletas.forEach(atleta => {
+    let media = calcularMediaNotas(atleta.notas);
 
     console.log(`Atleta: ${atleta.nome}`);
-    console.log(`Notas Obtidas: ${notasOrdenadas.join(",")}`);
-    console.log(`Média Válida: ${media}`);
+    console.log(`Notas Obtidas: ${atleta.notas.join(", ")}`);
+    console.log(`Média Válida: ${media.toFixed(2)}`);
     console.log("");
-  }
+  });
 }
 
 calcularMedia(atletas);
